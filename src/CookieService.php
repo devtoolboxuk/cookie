@@ -1,6 +1,6 @@
 <?php
 
-namespace devtoolboxuk\CookieService;
+namespace Devtoolboxuk\CookieService;
 
 class CookieService
 {

@@ -5,7 +5,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "devtoolboxuk\\CookieService\\": "src/"
+      "": "src/",
+      "Devtoolboxuk\\CookieService\\": "src/"
     }
   },
   "authors": [
