@@ -72,11 +72,13 @@ class CookieService
     public function setPathBasedOnUrl($url)
     {
         $path = parse_url($url, PHP_URL_PATH);
-        if ($path == "") {
+
+        if (empty($path)) {
             $path = "/";
         }
 
-        $this->setPath($path);
+        return $this->setPath($path);
+
     }
 
 
