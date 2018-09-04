@@ -57,7 +57,7 @@ class CookieService
      * CookieService constructor.
      * @param $options
      */
-    public function __construct($options)
+    public function __construct($options = array())
     {
         isset($options['prefix']) ? $this->setPrefix($options['prefix']) : null;
         isset($options['time']) ? $this->setTime($options['time']) : null;
@@ -145,10 +145,8 @@ class CookieService
 
     /**
      * Get item from cookie.
-     *
      * @param string $key → item to look for in cookie
-     *
-     * @return mixed|false → returns cookie value, cookies array or false
+     * @return bool
      */
     public function get($key = '')
     {
@@ -156,7 +154,7 @@ class CookieService
             return $_COOKIE[$this->prefix . $key];
         }
 
-        return (isset($_COOKIE) && count($_COOKIE)) ? $_COOKIE : false;
+        return false;
     }
 
     /**
