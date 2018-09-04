@@ -5,32 +5,31 @@ namespace devtoolboxuk\CookieService;
 class CookieService
 {
 
-
     /**
      * Prefix for cookies.
      * @var string
      */
-    public static $prefix = '';
+    private $prefix = '';
 
     /**
      * @var
      */
-    public static $domain = '';
+    private $domain = '';
 
     /**
      * @var bool
      */
-    public static $secure = true;
+    private $secure = true;
 
     /**
      * @var bool
      */
-    public static $httpOnly = true;
+    private $httpOnly = true;
 
     /**
      * @var string
      */
-    public static $path = '/';
+    private $path = '/';
 
     /**
      *
@@ -38,7 +37,7 @@ class CookieService
      *
      * @var int
      */
-    public static $time = 0;
+    private $time = 0;
 
     /**
      * Set cookie.
@@ -48,13 +47,17 @@ class CookieService
      *
      * @return boolean
      */
-    public static function set($key, $value)
+    public function set($key, $value)
     {
-        $prefix = self::$prefix . $key;
-        return setcookie($prefix, $value, self::$time, self::$path, self::$domain, self::$secure, self::$httpOnly);
+        $prefix = $this->prefix . $key;
+        return setcookie($prefix, $value, $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly);
     }
 
-    public static function setConfig($options)
+    /**
+     * CookieService constructor.
+     * @param $options
+     */
+    public function __construct($options)
     {
         isset($options['prefix']) ? self::setPrefix($options['prefix']) : null;
         isset($options['time']) ? self::setTime($options['time']) : null;
@@ -66,61 +69,61 @@ class CookieService
 
     }
 
-    public static function setPath($path)
+    public function setPath($path)
     {
         if (!empty($path) && is_string($path)) {
-            self::$path = $path;
+            $this->path = $path;
             return true;
         }
 
         return false;
     }
 
-    public static function setDomain($domain)
+    public function setDomain($domain)
     {
         if (!empty($domain) && is_string($domain)) {
-            self::$domain = $domain;
+            $this->domain = $domain;
             return true;
         }
 
         return false;
     }
 
-    public static function setSecure($secure)
+    public function setSecure($secure)
     {
         if (!empty($secure) && is_bool($secure)) {
-            self::$secure = $secure;
+            $this->secure = $secure;
             return true;
         }
 
         return false;
     }
 
-    public static function setHttpOnly($httpOnly)
+    public function setHttpOnly($httpOnly)
     {
         if (!empty($httpOnly) && is_bool($httpOnly)) {
-            self::$httpOnly = $httpOnly;
+            $this->httpOnly = $httpOnly;
             return true;
         }
 
         return false;
     }
 
-    public static function setStaticTime($time)
+    public function setStaticTime($time)
     {
         if (!empty($time) && is_int($time)) {
-            self::$time = $time;
+            $this->time = $time;
             return true;
         }
 
         return false;
     }
 
-    public static function setFutureTime($time = 365)
+    public function setFutureTime($time = 365)
     {
 
         if (!empty($time) && is_int($time)) {
-            self::$time = time() + (86400 * $time);
+            $this->time = time() + (86400 * $time);
             return true;
         }
 
@@ -134,10 +137,10 @@ class CookieService
      *
      * @return mixed|false → returns cookie value, cookies array or false
      */
-    public static function get($key = '')
+    public function get($key = '')
     {
-        if (isset($_COOKIE[self::$prefix . $key])) {
-            return $_COOKIE[self::$prefix . $key];
+        if (isset($_COOKIE[$this->prefix . $key])) {
+            return $_COOKIE[$this->prefix . $key];
         }
 
         return (isset($_COOKIE) && count($_COOKIE)) ? $_COOKIE : false;
@@ -150,12 +153,12 @@ class CookieService
      *
      * @return string|false → return item or false when key does not exists
      */
-    public static function pull($key)
+    public function pull($key)
     {
-        if (isset($_COOKIE[self::$prefix . $key])) {
-            setcookie(self::$prefix . $key, '', time() - 3600, '/');
+        if (isset($_COOKIE[$this->prefix . $key])) {
+            setcookie($this->prefix . $key, '', time() - 3600, $this->path);
 
-            return $_COOKIE[self::$prefix . $key];
+            return $_COOKIE[$this->prefix . $key];
         }
 
         return false;
@@ -168,17 +171,17 @@ class CookieService
      *
      * @return boolean
      */
-    public static function destroy($key = '')
+    public function destroy($key = '')
     {
-        if (isset($_COOKIE[self::$prefix . $key])) {
-            setcookie(self::$prefix . $key, '', time() - 3600, '/');
+        if (isset($_COOKIE[$this->prefix . $key])) {
+            setcookie($this->prefix . $key, '', time() - 3600, $this->path);
 
             return true;
         }
 
         if (count($_COOKIE) > 0) {
             foreach ($_COOKIE as $key => $value) {
-                setcookie($key, '', time() - 3600, '/');
+                setcookie($key, '', time() - 3600, $this->path);
             }
 
             return true;
@@ -196,10 +199,10 @@ class CookieService
         return self::$prefix;
     }
 
-    public static function setPrefix($prefix)
+    public function setPrefix($prefix)
     {
         if (!empty($prefix) && is_string($prefix)) {
-            self::$prefix = $prefix;
+            $this->prefix = $prefix;
             return true;
         }
 
