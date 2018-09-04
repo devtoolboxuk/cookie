@@ -59,13 +59,13 @@ class CookieService
      */
     public function __construct($options)
     {
-        isset($options['prefix']) ? self::setPrefix($options['prefix']) : null;
-        isset($options['time']) ? self::setTime($options['time']) : null;
-        isset($options['futureTime']) ? self::setTime($options['setFutureTime']) : null;
-        isset($options['path']) ? self::setPath($options['path']) : null;
-        isset($options['domain']) ? self::setDomain($options['domain']) : null;
-        isset($options['secure']) ? self::setSecure($options['secure']) : null;
-        isset($options['httpOnly']) ? self::setHttpOnly($options['httpOnly']) : null;
+        isset($options['prefix']) ? $this->setPrefix($options['prefix']) : null;
+        isset($options['time']) ? $this->setTime($options['time']) : null;
+        isset($options['futureTime']) ? $this->setTime($options['setFutureTime']) : null;
+        isset($options['path']) ? $this->setPath($options['path']) : null;
+        isset($options['domain']) ? $this->setDomain($options['domain']) : null;
+        isset($options['secure']) ? $this->setSecure($options['secure']) : null;
+        isset($options['httpOnly']) ? $this->setHttpOnly($options['httpOnly']) : null;
 
     }
 
@@ -194,9 +194,9 @@ class CookieService
      * Get cookie prefix.
      * @return string
      */
-    public static function getPrefix()
+    public function getPrefix()
     {
-        return self::$prefix;
+        return $this->prefix;
     }
 
     public function setPrefix($prefix)
