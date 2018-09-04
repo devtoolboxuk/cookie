@@ -15,7 +15,7 @@ class CookieService
     /**
      * @var
      */
-    public static $domain;
+    public static $domain = '';
 
     /**
      * @var bool
@@ -45,7 +45,6 @@ class CookieService
      *
      * @param string $key → name the data to save
      * @param string $value → the data to save
-     * @param integer $time → expiration time in days
      *
      * @return boolean
      */
@@ -54,7 +53,6 @@ class CookieService
         $prefix = self::$prefix . $key;
         return setcookie($prefix, $value, self::$time, self::$path, self::$domain, self::$secure, self::$httpOnly);
     }
-
 
     public static function setConfig($options)
     {
@@ -68,7 +66,7 @@ class CookieService
 
     }
 
-    public function setPath($path)
+    public static function setPath($path)
     {
         if (!empty($path) && is_string($path)) {
             self::$path = $path;
@@ -78,7 +76,7 @@ class CookieService
         return false;
     }
 
-    public function setDomain($domain)
+    public static function setDomain($domain)
     {
         if (!empty($domain) && is_string($domain)) {
             self::$domain = $domain;
@@ -88,7 +86,7 @@ class CookieService
         return false;
     }
 
-    public function setSecure($secure)
+    public static function setSecure($secure)
     {
         if (!empty($secure) && is_bool($secure)) {
             self::$secure = $secure;
@@ -98,7 +96,7 @@ class CookieService
         return false;
     }
 
-    public function setHttpOnly($httpOnly)
+    public static function setHttpOnly($httpOnly)
     {
         if (!empty($httpOnly) && is_bool($httpOnly)) {
             self::$httpOnly = $httpOnly;
